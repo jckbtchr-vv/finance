@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Cost - Visualize Value</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="whitepaper-page">
+        <header class="hero" id="top">
+            <p class="hero-flag mono">FINANCIAL MECHANICS / OPPORTUNITY COST</p>
+            <h1>OPPORTUNITY COST</h1>
+            <p class="tagline">
+                Every purchase has a hidden cost: the future value of that money if invested instead. 
+                Visualize what your spending could become over time.
+            </p>
+            <p class="tagline tagline-meta">
+                <a href="index.html" class="mono">← ALL TOOLS</a><br /><br />
+                <a href="https://x.com/jackbutcher" target="_blank" rel="noreferrer noopener">JACK BUTCHER</a> /
+                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a>
+            </p>
+        </header>
+
+        <div class="page-grid">
+            <aside class="nav-panel">
+                <p class="label label-nav">NAVVIGATE</p>
+                <nav>
+                    <a href="#calculator" class="nav-link active">Calculator</a>
+                    <a href="#timeline" class="nav-link">Timeline</a>
+                    <a href="#framework" class="nav-link">Framework</a>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <section id="calculator" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">01</p>
+                        <h2>Calculator</h2>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="scoreboard-card">
+                            <div class="scoreboard-content-top">
+                                <div class="scoreboard-head">
+                                    <span class="mono">FUTURE VALUE</span>
+                                    <span class="badge" id="years-badge">10 YEARS</span>
+                                </div>
+                                <div class="scoreboard-value" id="future-value">$0</div>
+                                <p class="scoreboard-note">
+                                    Opportunity cost: <span id="opportunity-cost" class="mono">$0</span>
+                                </p>
+                                
+                                <form class="contribution-form" onsubmit="return false;">
+                                    <label for="expenditure">EXPENDITURE (USD)</label>
+                                    <input type="number" id="expenditure" value="1000" min="1" step="100">
+                                    
+                                    <label for="return-rate">ANNUAL RETURN (%)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setReturn(6)">6%</button>
+                                        <button type="button" onclick="setReturn(8)">8%</button>
+                                        <button type="button" onclick="setReturn(10)">10%</button>
+                                    </div>
+                                    <input type="number" id="return-rate" value="8" min="0" step="0.5">
+                                    
+                                    <label for="years">TIME HORIZON (YEARS)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setYears(5)">5Y</button>
+                                        <button type="button" onclick="setYears(10)">10Y</button>
+                                        <button type="button" onclick="setYears(20)">20Y</button>
+                                    </div>
+                                    <input type="number" id="years" value="10" min="1" step="1">
+                                </form>
+                            </div>
+                            
+                            <div class="receipt-readout">
+                                <div>
+                                    <p class="label">MULTIPLIER</p>
+                                    <p class="mono" id="multiplier">2.16x</p>
+                                </div>
+                                <div>
+                                    <p class="label">TOTAL GAIN</p>
+                                    <p class="mono" id="total-gain">$0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="receipt-preview">
+                            <div class="receipt-top">
+                                <p class="mono">VV</p>
+                                <p class="mono">OPPORTUNITY LEDGER</p>
+                            </div>
+                            <div class="receipt-body">
+                                <ul class="receipt-lines" id="ledger-summary">
+                                </ul>
+                                <div class="receipt-summary">
+                                    <div>
+                                        <span>SPENT TODAY</span>
+                                        <span id="receipt-spent">$0.00</span>
+                                    </div>
+                                    <div>
+                                        <span>FUTURE VALUE</span>
+                                        <span id="receipt-future">$0.00</span>
+                                    </div>
+                                    <div class="receipt-summary-pnl">
+                                        <span>COST OF SPENDING</span>
+                                        <span id="receipt-cost">$0.00</span>
+                                    </div>
+                                    <div class="receipt-thank-you">
+                                        <span class="mono">TIME IS THE MULTIPLIER</span>
+                                        <span class="mono">VISUALIZEVALUE.COM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="receipt-footer">
+                                <p class="receipt-footer-message mono">THE TRUE COST<br />WHAT YOU GIVE UP BY SPENDING</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="timeline" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">02</p>
+                        <h2>Timeline</h2>
+                    </div>
+                    <p>
+                        Compound interest is exponential. The longer you wait, the more dramatic the difference between spending now and investing for later.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="growth-chart"></canvas>
+                    </div>
+                </section>
+
+                <section id="framework" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">03</p>
+                        <h2>Framework</h2>
+                    </div>
+                    <div class="triple-grid">
+                        <article class="pill">
+                            <h3>The Expenditure</h3>
+                            <ul>
+                                <li>The money leaving your account today.</li>
+                                <li>Could be a purchase, subscription, or lifestyle choice.</li>
+                                <li>The starting point for calculating opportunity cost.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>The Return</h3>
+                            <ul>
+                                <li>Historical S&P 500 average: ~10% annually.</li>
+                                <li>Conservative estimate: 7-8% after inflation.</li>
+                                <li>Compounds year over year.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>The Time</h3>
+                            <ul>
+                                <li>The multiplier that makes compound interest powerful.</li>
+                                <li>10 years doubles money at 7%.</li>
+                                <li>Time in the market beats timing the market.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <p>© 2026 Jack Butcher / Visualize Value. Financial Mechanics.</p>
+            <a href="#top" class="mono">Back to top ↑</a>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="opportunity.js"></script>
+</body>
+</html>
+

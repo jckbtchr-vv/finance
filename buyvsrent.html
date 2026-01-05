@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy vs Rent - Visualize Value</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="whitepaper-page">
+        <header class="hero" id="top">
+            <p class="hero-flag mono">FINANCIAL MECHANICS / BUY VS RENT</p>
+            <h1>BUY VS RENT</h1>
+            <p class="tagline">
+                The age-old question answered with math. Compare the true cost of ownership against renting over time.
+            </p>
+            <p class="tagline tagline-meta">
+                <a href="index.html" class="mono">← ALL TOOLS</a><br /><br />
+                <a href="https://x.com/jackbutcher" target="_blank" rel="noreferrer noopener">JACK BUTCHER</a> /
+                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a>
+            </p>
+        </header>
+
+        <div class="page-grid">
+            <aside class="nav-panel">
+                <p class="label label-nav">NAVVIGATE</p>
+                <nav>
+                    <a href="#calculator" class="nav-link active">Calculator</a>
+                    <a href="#comparison" class="nav-link">Comparison</a>
+                    <a href="#framework" class="nav-link">Framework</a>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <section id="calculator" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">01</p>
+                        <h2>Calculator</h2>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="scoreboard-card">
+                            <div class="scoreboard-content-top">
+                                <div class="scoreboard-head">
+                                    <span class="mono">VERDICT</span>
+                                    <span class="badge" id="verdict-badge">CALCULATING</span>
+                                </div>
+                                <div class="scoreboard-value" id="savings-difference">$0</div>
+                                <p class="scoreboard-note">
+                                    Break-even point: <span id="breakeven" class="mono">-- years</span>
+                                </p>
+                                
+                                <form class="contribution-form" onsubmit="return false;">
+                                    <label>— BUYING —</label>
+                                    
+                                    <label for="home-price">HOME PRICE (USD)</label>
+                                    <input type="number" id="home-price" value="500000" min="10000" step="10000">
+                                    
+                                    <label for="down-payment">DOWN PAYMENT (%)</label>
+                                    <input type="number" id="down-payment" value="20" min="0" max="100" step="5">
+                                    
+                                    <label for="mortgage-rate">MORTGAGE RATE (%)</label>
+                                    <input type="number" id="mortgage-rate" value="7" min="0" step="0.25">
+                                    
+                                    <label for="property-tax">PROPERTY TAX (%/year)</label>
+                                    <input type="number" id="property-tax" value="1.2" min="0" step="0.1">
+                                    
+                                    <label for="appreciation">HOME APPRECIATION (%/year)</label>
+                                    <input type="number" id="appreciation" value="3" min="0" step="0.5">
+                                    
+                                    <label>— RENTING —</label>
+                                    
+                                    <label for="monthly-rent">MONTHLY RENT (USD)</label>
+                                    <input type="number" id="monthly-rent" value="2500" min="0" step="100">
+                                    
+                                    <label for="rent-increase">ANNUAL RENT INCREASE (%)</label>
+                                    <input type="number" id="rent-increase" value="3" min="0" step="0.5">
+                                    
+                                    <label for="investment-return">INVESTMENT RETURN (%)</label>
+                                    <input type="number" id="investment-return" value="8" min="0" step="0.5">
+                                    
+                                    <label for="time-horizon">TIME HORIZON (YEARS)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setHorizon(5)">5Y</button>
+                                        <button type="button" onclick="setHorizon(10)">10Y</button>
+                                        <button type="button" onclick="setHorizon(20)">20Y</button>
+                                    </div>
+                                    <input type="number" id="time-horizon" value="10" min="1" step="1">
+                                </form>
+                            </div>
+                            
+                            <div class="receipt-readout">
+                                <div>
+                                    <p class="label">BUY WEALTH</p>
+                                    <p class="mono" id="buy-wealth">$0</p>
+                                </div>
+                                <div>
+                                    <p class="label">RENT WEALTH</p>
+                                    <p class="mono" id="rent-wealth">$0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="receipt-preview">
+                            <div class="receipt-top">
+                                <p class="mono">VV</p>
+                                <p class="mono">BUY VS RENT LEDGER</p>
+                            </div>
+                            <div class="receipt-body">
+                                <ul class="receipt-lines" id="ledger-summary">
+                                </ul>
+                                <div class="receipt-summary">
+                                    <div>
+                                        <span>BUYING TOTAL</span>
+                                        <span id="receipt-buy">$0.00</span>
+                                    </div>
+                                    <div>
+                                        <span>RENTING TOTAL</span>
+                                        <span id="receipt-rent">$0.00</span>
+                                    </div>
+                                    <div class="receipt-summary-pnl">
+                                        <span>DIFFERENCE</span>
+                                        <span id="receipt-diff">$0.00</span>
+                                    </div>
+                                    <div class="receipt-thank-you">
+                                        <span class="mono">CONTEXT IS EVERYTHING</span>
+                                        <span class="mono">VISUALIZEVALUE.COM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="receipt-footer">
+                                <p class="receipt-footer-message mono">THE REAL COMPARISON<br />WEALTH BUILDING VS FLEXIBILITY</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="comparison" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">02</p>
+                        <h2>Comparison</h2>
+                    </div>
+                    <p>
+                        This chart shows net wealth over time for both scenarios. Buying includes equity buildup and appreciation. Renting assumes the down payment is invested instead.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="comparison-chart"></canvas>
+                    </div>
+                </section>
+
+                <section id="framework" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">03</p>
+                        <h2>Framework</h2>
+                    </div>
+                    <div class="triple-grid">
+                        <article class="pill">
+                            <h3>Buying Costs</h3>
+                            <ul>
+                                <li>Down payment (opportunity cost).</li>
+                                <li>Mortgage interest payments.</li>
+                                <li>Property taxes, insurance, maintenance.</li>
+                                <li>Transaction costs when selling.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>Buying Benefits</h3>
+                            <ul>
+                                <li>Equity buildup with each payment.</li>
+                                <li>Home appreciation over time.</li>
+                                <li>Fixed housing costs (mostly).</li>
+                                <li>Tax deductions on mortgage interest.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>Renting Trade-offs</h3>
+                            <ul>
+                                <li>No equity, but no risk of depreciation.</li>
+                                <li>Down payment can be invested elsewhere.</li>
+                                <li>Flexibility to move easily.</li>
+                                <li>No maintenance costs or surprises.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <p>© 2026 Jack Butcher / Visualize Value. Financial Mechanics.</p>
+            <a href="#top" class="mono">Back to top ↑</a>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="buyvsrent.js"></script>
+</body>
+</html>
+
