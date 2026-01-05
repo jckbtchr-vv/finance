@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Payoff - Visualize Value</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .debt-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .debt-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr auto;
+            gap: 0.5rem;
+            align-items: end;
+            padding: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+        }
+        .debt-item input {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+        .debt-item label {
+            font-size: 0.65rem;
+            margin-bottom: 0.25rem;
+        }
+        .debt-item button {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-family: 'Departure Mono', monospace;
+        }
+        .debt-item button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .add-debt-btn {
+            background: transparent;
+            border: 1px dashed rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7);
+            padding: 0.75rem;
+            cursor: pointer;
+            font-family: 'Departure Mono', monospace;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .add-debt-btn:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+        .strategy-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .strategy-card {
+            border: 1px solid var(--grid);
+            padding: 1.5rem;
+        }
+        .strategy-card h3 {
+            margin-bottom: 1rem;
+        }
+        .strategy-card .winner {
+            border-color: var(--fg);
+            background: #fafafa;
+        }
+        .strategy-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--grid);
+        }
+        .strategy-stat:last-child {
+            border-bottom: none;
+        }
+        @media (max-width: 768px) {
+            .debt-item {
+                grid-template-columns: 1fr 1fr;
+            }
+            .strategy-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="whitepaper-page">
+        <header class="hero" id="top">
+            <p class="hero-flag mono">FINANCIAL MECHANICS / DEBT PAYOFF</p>
+            <h1>DEBT PAYOFF</h1>
+            <p class="tagline">
+                Compare Snowball (smallest balance first) vs Avalanche (highest interest first). 
+                See which strategy gets you debt-free faster and which saves more money.
+            </p>
+            <p class="tagline tagline-meta">
+                <a href="index.html" class="mono">← ALL TOOLS</a><br /><br />
+                <a href="https://x.com/jackbutcher" target="_blank" rel="noreferrer noopener">JACK BUTCHER</a> /
+                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a>
+            </p>
+        </header>
+
+        <div class="page-grid">
+            <aside class="nav-panel">
+                <p class="label label-nav">NAVVIGATE</p>
+                <nav>
+                    <a href="#calculator" class="nav-link active">Calculator</a>
+                    <a href="#timeline" class="nav-link">Timeline</a>
+                    <a href="#framework" class="nav-link">Framework</a>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <section id="calculator" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">01</p>
+                        <h2>Calculator</h2>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="scoreboard-card">
+                            <div class="scoreboard-content-top">
+                                <div class="scoreboard-head">
+                                    <span class="mono">TOTAL DEBT</span>
+                                    <span class="badge" id="debt-count">0 DEBTS</span>
+                                </div>
+                                <div class="scoreboard-value" id="total-debt">$0</div>
+                                <p class="scoreboard-note">
+                                    Interest saved with Avalanche: <span id="interest-saved" class="mono">$0</span>
+                                </p>
+                                
+                                <div class="debt-list" id="debt-list">
+                                    <!-- Debts will be added here -->
+                                </div>
+                                <button class="add-debt-btn" onclick="addDebt()">+ ADD DEBT</button>
+                                
+                                <form class="contribution-form" onsubmit="return false;" style="margin-top: 1.5rem;">
+                                    <label for="extra-payment">EXTRA MONTHLY PAYMENT (USD)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setExtra(100)">$100</button>
+                                        <button type="button" onclick="setExtra(250)">$250</button>
+                                        <button type="button" onclick="setExtra(500)">$500</button>
+                                    </div>
+                                    <input type="number" id="extra-payment" value="200" min="0" step="50">
+                                </form>
+                            </div>
+                            
+                            <div class="receipt-readout">
+                                <div>
+                                    <p class="label">SNOWBALL</p>
+                                    <p class="mono" id="snowball-months">0 mo</p>
+                                </div>
+                                <div>
+                                    <p class="label">AVALANCHE</p>
+                                    <p class="mono" id="avalanche-months">0 mo</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="receipt-preview">
+                            <div class="receipt-top">
+                                <p class="mono">VV</p>
+                                <p class="mono">DEBT PAYOFF LEDGER</p>
+                            </div>
+                            <div class="receipt-body">
+                                <ul class="receipt-lines" id="ledger-summary">
+                                </ul>
+                                <div class="receipt-summary">
+                                    <div>
+                                        <span>SNOWBALL INTEREST</span>
+                                        <span id="receipt-snowball-interest">$0</span>
+                                    </div>
+                                    <div>
+                                        <span>AVALANCHE INTEREST</span>
+                                        <span id="receipt-avalanche-interest">$0</span>
+                                    </div>
+                                    <div class="receipt-summary-pnl">
+                                        <span>SAVINGS</span>
+                                        <span id="receipt-savings">$0</span>
+                                    </div>
+                                    <div class="receipt-thank-you">
+                                        <span class="mono">DEBT IS AN EMERGENCY</span>
+                                        <span class="mono">VISUALIZEVALUE.COM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="receipt-footer">
+                                <p class="receipt-footer-message mono">PICK A STRATEGY<br />STICK WITH IT</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="strategy-comparison">
+                        <div class="strategy-card" id="snowball-card">
+                            <h3>SNOWBALL</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.7;">Pay smallest balance first for quick wins.</p>
+                            <div class="strategy-stat">
+                                <span>Debt-Free In</span>
+                                <span class="mono" id="snowball-time">--</span>
+                            </div>
+                            <div class="strategy-stat">
+                                <span>Total Interest</span>
+                                <span class="mono" id="snowball-interest">--</span>
+                            </div>
+                            <div class="strategy-stat">
+                                <span>Total Paid</span>
+                                <span class="mono" id="snowball-total">--</span>
+                            </div>
+                        </div>
+                        <div class="strategy-card" id="avalanche-card">
+                            <h3>AVALANCHE</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.7;">Pay highest interest first for max savings.</p>
+                            <div class="strategy-stat">
+                                <span>Debt-Free In</span>
+                                <span class="mono" id="avalanche-time">--</span>
+                            </div>
+                            <div class="strategy-stat">
+                                <span>Total Interest</span>
+                                <span class="mono" id="avalanche-interest">--</span>
+                            </div>
+                            <div class="strategy-stat">
+                                <span>Total Paid</span>
+                                <span class="mono" id="avalanche-total">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="timeline" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">02</p>
+                        <h2>Timeline</h2>
+                    </div>
+                    <p>
+                        Watch your total debt decrease over time with each strategy. The shape of the curves reveals how each approach tackles debt differently.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="payoff-chart"></canvas>
+                    </div>
+                </section>
+
+                <section id="framework" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">03</p>
+                        <h2>Framework</h2>
+                    </div>
+                    <div class="triple-grid">
+                        <article class="pill">
+                            <h3>Snowball Method</h3>
+                            <ul>
+                                <li>Pay minimums on everything.</li>
+                                <li>Extra goes to smallest balance.</li>
+                                <li>Quick wins = motivation.</li>
+                                <li>Psychology over math.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>Avalanche Method</h3>
+                            <ul>
+                                <li>Pay minimums on everything.</li>
+                                <li>Extra goes to highest interest rate.</li>
+                                <li>Mathematically optimal.</li>
+                                <li>Saves the most money.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>The Truth</h3>
+                            <ul>
+                                <li>Both work if you stick with them.</li>
+                                <li>The best method is the one you'll do.</li>
+                                <li>Consistency beats optimization.</li>
+                                <li>Any extra payment accelerates freedom.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <p>© 2026 Jack Butcher / Visualize Value. Financial Mechanics.</p>
+            <a href="#top" class="mono">Back to top ↑</a>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="debt.js"></script>
+</body>
+</html>
+

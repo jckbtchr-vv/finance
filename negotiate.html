@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Negotiation Impact - Visualize Value</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="whitepaper-page">
+        <header class="hero" id="top">
+            <p class="hero-flag mono">FINANCIAL MECHANICS / SALARY NEGOTIATION</p>
+            <h1>NEGOTIATION IMPACT</h1>
+            <p class="tagline">
+                A $5,000 raise isn't just $5,000. It compounds through percentage-based raises, 
+                job hops, and retirement contributions over your entire career.
+            </p>
+            <p class="tagline tagline-meta">
+                <a href="index.html" class="mono">← ALL TOOLS</a><br /><br />
+                <a href="https://x.com/jackbutcher" target="_blank" rel="noreferrer noopener">JACK BUTCHER</a> /
+                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a>
+            </p>
+        </header>
+
+        <div class="page-grid">
+            <aside class="nav-panel">
+                <p class="label label-nav">NAVVIGATE</p>
+                <nav>
+                    <a href="#calculator" class="nav-link active">Calculator</a>
+                    <a href="#projection" class="nav-link">Projection</a>
+                    <a href="#framework" class="nav-link">Framework</a>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <section id="calculator" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">01</p>
+                        <h2>Calculator</h2>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="scoreboard-card">
+                            <div class="scoreboard-content-top">
+                                <div class="scoreboard-head">
+                                    <span class="mono">LIFETIME VALUE</span>
+                                    <span class="badge" id="years-badge">30 YEARS</span>
+                                </div>
+                                <div class="scoreboard-value" id="lifetime-value">$0</div>
+                                <p class="scoreboard-note">
+                                    This negotiation is worth <span id="negotiation-worth" class="mono">$0</span>
+                                </p>
+                                
+                                <form class="contribution-form" onsubmit="return false;">
+                                    <label for="current-salary">CURRENT SALARY (USD)</label>
+                                    <input type="number" id="current-salary" value="75000" min="0" step="1000">
+                                    
+                                    <label for="raise-amount">RAISE AMOUNT (USD)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setRaise(5000)">$5K</button>
+                                        <button type="button" onclick="setRaise(10000)">$10K</button>
+                                        <button type="button" onclick="setRaise(15000)">$15K</button>
+                                    </div>
+                                    <input type="number" id="raise-amount" value="5000" min="0" step="1000">
+                                    
+                                    <label for="annual-raise">ANNUAL RAISE % (GOING FORWARD)</label>
+                                    <input type="number" id="annual-raise" value="3" min="0" step="0.5">
+                                    
+                                    <label for="years-to-retirement">YEARS UNTIL RETIREMENT</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setYears(20)">20Y</button>
+                                        <button type="button" onclick="setYears(30)">30Y</button>
+                                        <button type="button" onclick="setYears(40)">40Y</button>
+                                    </div>
+                                    <input type="number" id="years-to-retirement" value="30" min="1" step="1">
+                                    
+                                    <label for="match-percent">401K EMPLOYER MATCH (%)</label>
+                                    <input type="number" id="match-percent" value="4" min="0" step="0.5">
+                                    
+                                    <label for="investment-return">INVESTMENT RETURN (%)</label>
+                                    <input type="number" id="investment-return" value="7" min="0" step="0.5">
+                                </form>
+                            </div>
+                            
+                            <div class="receipt-readout">
+                                <div>
+                                    <p class="label">EARNINGS DIFF</p>
+                                    <p class="mono" id="earnings-diff">$0</p>
+                                </div>
+                                <div>
+                                    <p class="label">RETIREMENT DIFF</p>
+                                    <p class="mono" id="retirement-diff">$0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="receipt-preview">
+                            <div class="receipt-top">
+                                <p class="mono">VV</p>
+                                <p class="mono">NEGOTIATION LEDGER</p>
+                            </div>
+                            <div class="receipt-body">
+                                <ul class="receipt-lines" id="ledger-summary">
+                                </ul>
+                                <div class="receipt-summary">
+                                    <div>
+                                        <span>EXTRA EARNINGS</span>
+                                        <span id="receipt-earnings">$0</span>
+                                    </div>
+                                    <div>
+                                        <span>EXTRA RETIREMENT</span>
+                                        <span id="receipt-retirement">$0</span>
+                                    </div>
+                                    <div class="receipt-summary-pnl">
+                                        <span>TOTAL IMPACT</span>
+                                        <span id="receipt-total">$0</span>
+                                    </div>
+                                    <div class="receipt-thank-you">
+                                        <span class="mono">ASK FOR WHAT YOU'RE WORTH</span>
+                                        <span class="mono">VISUALIZEVALUE.COM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="receipt-footer">
+                                <p class="receipt-footer-message mono">ONE CONVERSATION<br />LIFETIME OF IMPACT</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projection" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">02</p>
+                        <h2>Projection</h2>
+                    </div>
+                    <p>
+                        Watch the gap widen over time. The initial raise becomes a larger dollar difference 
+                        every year as percentage raises compound on a higher base.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="projection-chart"></canvas>
+                    </div>
+                </section>
+
+                <section id="framework" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">03</p>
+                        <h2>Framework</h2>
+                    </div>
+                    <div class="triple-grid">
+                        <article class="pill">
+                            <h3>The Base Effect</h3>
+                            <ul>
+                                <li>Future raises are percentages of current salary.</li>
+                                <li>$80k + 3% = $2,400 raise next year.</li>
+                                <li>$75k + 3% = $2,250 raise next year.</li>
+                                <li>The gap compounds forever.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>The Retirement Multiplier</h3>
+                            <ul>
+                                <li>Higher salary = higher 401k match.</li>
+                                <li>That extra match compounds for decades.</li>
+                                <li>$200 more per month invested for 30 years = ~$240k.</li>
+                                <li>Free money multiplied by time.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>The Job Hop Effect</h3>
+                            <ul>
+                                <li>New jobs often offer 10-20% bumps.</li>
+                                <li>That bump is based on your current salary.</li>
+                                <li>Starting higher means hopping higher.</li>
+                                <li>Every negotiation sets your future floor.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <p>© 2026 Jack Butcher / Visualize Value. Financial Mechanics.</p>
+            <a href="#top" class="mono">Back to top ↑</a>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="negotiate.js"></script>
+</body>
+</html>
+
