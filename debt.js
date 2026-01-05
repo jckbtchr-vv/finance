@@ -40,23 +40,27 @@ function renderDebtList() {
     const container = document.getElementById('debt-list');
     container.innerHTML = debts.map((debt, index) => `
         <div class="debt-item">
-            <div>
-                <label>NAME</label>
-                <input type="text" value="${debt.name}" onchange="updateDebt(${index}, 'name', this.value)">
+            <div class="debt-item-header">
+                <div class="debt-item-name">
+                    <label>DEBT NAME</label>
+                    <input type="text" value="${debt.name}" onchange="updateDebt(${index}, 'name', this.value)">
+                </div>
+                <button class="debt-item-remove" onclick="removeDebt(${index})">REMOVE</button>
             </div>
-            <div>
-                <label>BALANCE</label>
-                <input type="number" value="${debt.balance}" onchange="updateDebt(${index}, 'balance', this.value)">
+            <div class="debt-item-row">
+                <div class="debt-item-field">
+                    <label>BALANCE</label>
+                    <input type="number" value="${debt.balance}" onchange="updateDebt(${index}, 'balance', this.value)">
+                </div>
+                <div class="debt-item-field">
+                    <label>APR %</label>
+                    <input type="number" value="${debt.rate}" step="0.1" onchange="updateDebt(${index}, 'rate', this.value)">
+                </div>
+                <div class="debt-item-field">
+                    <label>MIN PAYMENT</label>
+                    <input type="number" value="${debt.minimum}" onchange="updateDebt(${index}, 'minimum', this.value)">
+                </div>
             </div>
-            <div>
-                <label>APR %</label>
-                <input type="number" value="${debt.rate}" step="0.1" onchange="updateDebt(${index}, 'rate', this.value)">
-            </div>
-            <div>
-                <label>MIN PMT</label>
-                <input type="number" value="${debt.minimum}" onchange="updateDebt(${index}, 'minimum', this.value)">
-            </div>
-            <button onclick="removeDebt(${index})">×</button>
         </div>
     `).join('');
 }
