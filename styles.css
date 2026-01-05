@@ -300,22 +300,25 @@ a {
 /* Receipt Style */
 .receipt-preview {
   border: 1px solid var(--grid);
-  padding: 3rem;
+  padding: 2.5rem;
   background: #fff;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
 }
 
 .receipt-top p {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
 }
 
 .receipt-lines {
   list-style: none;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   padding: 0;
   border-top: 1px dashed var(--grid);
   border-bottom: 1px dashed var(--grid);
@@ -324,44 +327,47 @@ a {
 .receipt-lines li {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
-  font-size: 0.9rem;
-  font-family: 'JetBrains Mono', monospace;
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
 }
 
 .receipt-summary {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .receipt-summary > div {
   display: flex;
   justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
 }
 
 .receipt-summary-pnl {
-  margin-top: 1rem;
-  padding-top: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
   border-top: 1px solid var(--fg);
   font-weight: 600;
 }
 
 .receipt-thank-you {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: 0.8rem;
   text-align: left;
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
 }
 
 .receipt-footer {
   border-top: 1px dashed var(--fg);
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .receipt-footer-message {
   font-size: 0.8rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
 }
 
 /* Charts and Comparisons */
