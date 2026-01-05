@@ -59,7 +59,7 @@ function updateDisplay(monthly, total, depreciation, rent, residual) {
     totalCostDisplay.textContent = formatCurrency(total);
     displayDepreciation.textContent = formatCurrency(depreciation);
     displayRent.textContent = formatCurrency(rent);
-    residualBadge.textContent = `${residual}% RESIDUAL`;
+    residualBadge.textContent = `${residual}% VALUE LEFT`;
 }
 
 function updateLedger(depreciation, rent, total) {
@@ -69,19 +69,19 @@ function updateLedger(depreciation, rent, total) {
 
     ledgerSummary.innerHTML = `
         <li>
-            <span>MSRP</span>
+            <span>STICKER PRICE</span>
             <span>${formatCurrency(parseFloat(msrpInput.value))}</span>
         </li>
         <li>
-            <span>TERM</span>
+            <span>LEASE LENGTH</span>
             <span>${termInput.value} MONTHS</span>
         </li>
         <li>
-            <span>MONEY FACTOR</span>
-            <span>${moneyFactorInput.value}</span>
+            <span>INTEREST</span>
+            <span>${(parseFloat(moneyFactorInput.value) * 2400).toFixed(1)}% APR</span>
         </li>
         <li>
-            <span>RESIDUAL</span>
+            <span>VALUE LEFT</span>
             <span>${residualPercentInput.value}%</span>
         </li>
     `;
@@ -97,7 +97,7 @@ function updateChart(depreciation, rent) {
     leaseChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Depreciation', 'Rent Charge'],
+            labels: ['Value Lost', 'Interest Fee'],
             datasets: [{
                 data: [depreciation, rent],
                 backgroundColor: ['#050505', '#d9d7d1'],

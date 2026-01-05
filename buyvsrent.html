@@ -56,19 +56,19 @@
                                 <form class="contribution-form" onsubmit="return false;">
                                     <label>— BUYING —</label>
                                     
-                                    <label for="home-price">HOME PRICE (USD)</label>
+                                    <label for="home-price">HOME PRICE</label>
                                     <input type="number" id="home-price" value="500000" min="10000" step="10000">
                                     
-                                    <label for="down-payment">DOWN PAYMENT (%)</label>
+                                    <label for="down-payment">UPFRONT CASH YOU'LL PUT DOWN (%)</label>
                                     <input type="number" id="down-payment" value="20" min="0" max="100" step="5">
                                     
-                                    <label for="mortgage-rate">MORTGAGE RATE (%)</label>
+                                    <label for="mortgage-rate">LOAN INTEREST RATE (%)</label>
                                     <input type="number" id="mortgage-rate" value="7" min="0" step="0.25">
                                     
-                                    <label for="property-tax">PROPERTY TAX (%/year)</label>
+                                    <label for="property-tax">YEARLY PROPERTY TAX (%)</label>
                                     <input type="number" id="property-tax" value="1.2" min="0" step="0.1">
                                     
-                                    <label for="appreciation">HOME APPRECIATION (%/year)</label>
+                                    <label for="appreciation">HOME VALUE GROWTH PER YEAR (%)</label>
                                     <input type="number" id="appreciation" value="3" min="0" step="0.5">
                                     
                                     <label>— RENTING —</label>
@@ -76,13 +76,13 @@
                                     <label for="monthly-rent">MONTHLY RENT (USD)</label>
                                     <input type="number" id="monthly-rent" value="2500" min="0" step="100">
                                     
-                                    <label for="rent-increase">ANNUAL RENT INCREASE (%)</label>
+                                    <label for="rent-increase">RENT GOES UP EACH YEAR BY (%)</label>
                                     <input type="number" id="rent-increase" value="3" min="0" step="0.5">
                                     
-                                    <label for="investment-return">INVESTMENT RETURN (%)</label>
+                                    <label for="investment-return">IF YOU INVESTED INSTEAD (% RETURN)</label>
                                     <input type="number" id="investment-return" value="8" min="0" step="0.5">
                                     
-                                    <label for="time-horizon">TIME HORIZON (YEARS)</label>
+                                    <label for="time-horizon">HOW LONG WILL YOU STAY? (YEARS)</label>
                                     <div class="tip-presets">
                                         <button type="button" onclick="setHorizon(5)">5Y</button>
                                         <button type="button" onclick="setHorizon(10)">10Y</button>

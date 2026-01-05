@@ -55,13 +55,13 @@
                                 </p>
                                 
                                 <form class="contribution-form" onsubmit="return false;">
-                                    <label for="salary">ANNUAL SALARY (USD)</label>
+                                    <label for="salary">YEARLY SALARY (BEFORE TAXES)</label>
                                     <input type="number" id="salary" value="75000" min="0" step="1000">
                                     
-                                    <label for="weekly-hours">WEEKLY HOURS "ON THE CLOCK"</label>
+                                    <label for="weekly-hours">HOURS YOU'RE PAID FOR EACH WEEK</label>
                                     <input type="number" id="weekly-hours" value="40" min="1" step="1">
                                     
-                                    <label for="commute">DAILY COMMUTE (ROUND TRIP MINUTES)</label>
+                                    <label for="commute">TOTAL COMMUTE TIME EACH DAY (MINUTES)</label>
                                     <div class="tip-presets">
                                         <button type="button" onclick="setCommute(0)">REMOTE</button>
                                         <button type="button" onclick="setCommute(30)">30 MIN</button>
@@ -69,24 +69,24 @@
                                     </div>
                                     <input type="number" id="commute" value="45" min="0" step="5">
                                     
-                                    <label for="prep-time">DAILY PREP TIME (MINUTES)</label>
+                                    <label for="prep-time">TIME GETTING READY FOR WORK (DAILY MIN)</label>
                                     <input type="number" id="prep-time" value="30" min="0" step="5">
                                     
-                                    <label for="overtime">UNPAID OVERTIME PER WEEK (HOURS)</label>
+                                    <label for="overtime">EXTRA HOURS YOU WORK BUT DON'T GET PAID</label>
                                     <input type="number" id="overtime" value="5" min="0" step="1">
                                     
-                                    <label for="work-expenses">MONTHLY WORK EXPENSES (USD)</label>
+                                    <label for="work-expenses">MONTHLY COSTS BECAUSE OF WORK (GAS, CLOTHES, LUNCH)</label>
                                     <input type="number" id="work-expenses" value="200" min="0" step="25">
                                 </form>
                             </div>
                             
                             <div class="receipt-readout">
                                 <div>
-                                    <p class="label">REAL HOURS/YEAR</p>
+                                    <p class="label">ACTUAL HOURS/YEAR</p>
                                     <p class="mono" id="real-hours">0</p>
                                 </div>
                                 <div>
-                                    <p class="label">NET COMPENSATION</p>
+                                    <p class="label">WHAT YOU REALLY TAKE HOME</p>
                                     <p class="mono" id="net-comp">$0</p>
                                 </div>
                             </div>

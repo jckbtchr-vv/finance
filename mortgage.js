@@ -70,15 +70,15 @@ function updateLedger(principal, interest, total) {
     // Update lines in the ledger
     ledgerSummary.innerHTML = `
         <li>
-            <span>TERM</span>
+            <span>LOAN LENGTH</span>
             <span>${termInput.value} YEARS</span>
         </li>
         <li>
-            <span>ANNUAL RATE</span>
+            <span>INTEREST RATE</span>
             <span>${rateInput.value}%</span>
         </li>
         <li>
-            <span>MONTHS</span>
+            <span>TOTAL PAYMENTS</span>
             <span>${termInput.value * 12}</span>
         </li>
     `;
@@ -125,12 +125,12 @@ function updateChart(P, annualRate, years) {
             labels: labels,
             datasets: [
                 {
-                    label: 'Interest',
+                    label: 'Interest (Bank\'s Cut)',
                     data: interestData,
                     backgroundColor: '#050505',
                 },
                 {
-                    label: 'Principal',
+                    label: 'Principal (Your Equity)',
                     data: principalData,
                     backgroundColor: '#d9d7d1',
                 }

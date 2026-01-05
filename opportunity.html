@@ -55,7 +55,7 @@
                                 </p>
                                 
                                 <form class="contribution-form" onsubmit="return false;">
-                                    <label for="habit-cost">HABIT COST (USD)</label>
+                                    <label for="habit-cost">WHAT DOES IT COST EACH TIME?</label>
                                     <div class="tip-presets">
                                         <button type="button" onclick="setHabit(5)">$5</button>
                                         <button type="button" onclick="setHabit(15)">$15</button>
@@ -63,7 +63,7 @@
                                     </div>
                                     <input type="number" id="habit-cost" value="7" min="0.01" step="0.5">
                                     
-                                    <label for="frequency">FREQUENCY</label>
+                                    <label for="frequency">HOW OFTEN DO YOU DO THIS?</label>
                                     <div class="tip-presets">
                                         <button type="button" onclick="setFrequency('daily')">DAILY</button>
                                         <button type="button" onclick="setFrequency('weekly')">WEEKLY</button>
@@ -75,7 +75,7 @@
                                         <option value="monthly">Monthly</option>
                                     </select>
                                     
-                                    <label for="return-rate">ANNUAL RETURN (%)</label>
+                                    <label for="return-rate">IF YOU INVESTED IT INSTEAD (% GROWTH)</label>
                                     <div class="tip-presets">
                                         <button type="button" onclick="setReturn(6)">6%</button>
                                         <button type="button" onclick="setReturn(8)">8%</button>
@@ -83,7 +83,7 @@
                                     </div>
                                     <input type="number" id="return-rate" value="8" min="0" step="0.5">
                                     
-                                    <label for="years">TIME HORIZON (YEARS)</label>
+                                    <label for="years">HOW MANY YEARS?</label>
                                     <div class="tip-presets">
                                         <button type="button" onclick="setYears(10)">10Y</button>
                                         <button type="button" onclick="setYears(20)">20Y</button>
@@ -99,7 +99,7 @@
                                     <p class="mono" id="yearly-cost">$0</p>
                                 </div>
                                 <div>
-                                    <p class="label">OPPORTUNITY COST</p>
+                                    <p class="label">WHAT YOU'RE GIVING UP</p>
                                     <p class="mono" id="opportunity-cost">$0</p>
                                 </div>
                             </div>

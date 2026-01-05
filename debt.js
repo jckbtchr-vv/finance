@@ -53,11 +53,11 @@ function renderDebtList() {
                     <input type="number" value="${debt.balance}" onchange="updateDebt(${index}, 'balance', this.value)">
                 </div>
                 <div class="debt-item-field">
-                    <label>APR %</label>
+                    <label>INTEREST %</label>
                     <input type="number" value="${debt.rate}" step="0.1" onchange="updateDebt(${index}, 'rate', this.value)">
                 </div>
                 <div class="debt-item-field">
-                    <label>MIN PAYMENT</label>
+                    <label>MINIMUM</label>
                     <input type="number" value="${debt.minimum}" onchange="updateDebt(${index}, 'minimum', this.value)">
                 </div>
             </div>
