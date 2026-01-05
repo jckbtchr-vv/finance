@@ -1,8 +1,6 @@
 // Debt Payoff Calculator Logic
 let debts = [
-    { name: 'Credit Card', balance: 5000, rate: 22, minimum: 150 },
-    { name: 'Car Loan', balance: 12000, rate: 6, minimum: 300 },
-    { name: 'Student Loan', balance: 25000, rate: 5, minimum: 280 }
+    { name: 'Credit Card', balance: 8500, rate: 24, minimum: 200 }
 ];
 
 const extraPaymentInput = document.getElementById('extra-payment');
