@@ -15,7 +15,7 @@
             <p class="hero-flag mono">FINANCIAL MECHANICS / BURN RATE</p>
             <h1>BURN RATE</h1>
             <p class="tagline">
-                Calculate the cost of existing. Understand your daily financial footprint and how long your runway lasts.
+                Calculate the cost of existing. Understand your hourly price of life and how much time you're banking.
             </p>
             <p class="tagline tagline-meta">
                 <a href="index.html" class="mono">← ALL TOOLS</a><br /><br />
@@ -45,12 +45,12 @@
                         <div class="scoreboard-card">
                             <div class="scoreboard-content-top">
                                 <div class="scoreboard-head">
-                                    <span class="mono">COST PER DAY</span>
+                                    <span class="mono">COST PER HOUR</span>
                                     <span class="badge" id="status-badge">DEFICIT</span>
                                 </div>
-                                <div class="scoreboard-value" id="daily-cost">$0</div>
+                                <div class="scoreboard-value" id="hourly-cost">$0</div>
                                 <p class="scoreboard-note">
-                                    Monthly net: <span id="monthly-net" class="mono">$0</span>
+                                    <span id="daily-cost" class="mono">$0</span>/day · <span id="monthly-cost" class="mono">$0</span>/month
                                 </p>
                                 
                                 <form class="contribution-form" onsubmit="return false;">
@@ -80,7 +80,11 @@
                                 </form>
                             </div>
                             
-                            <div class="receipt-readout">
+                            <div class="receipt-readout receipt-readout-triple">
+                                <div>
+                                    <p class="label">TIME BANKED</p>
+                                    <p class="mono" id="time-banked">0 days</p>
+                                </div>
                                 <div>
                                     <p class="label">RUNWAY</p>
                                     <p class="mono" id="runway">0 months</p>
@@ -109,18 +113,22 @@
                                         <span>EXPENSES</span>
                                         <span id="receipt-expenses">$0.00</span>
                                     </div>
-                                    <div class="receipt-summary-pnl">
-                                        <span>NET</span>
+                                    <div>
+                                        <span>MONTHLY NET</span>
                                         <span id="receipt-net">$0.00</span>
                                     </div>
+                                    <div class="receipt-summary-pnl">
+                                        <span>TIME SURPLUS</span>
+                                        <span id="receipt-time">0 days</span>
+                                    </div>
                                     <div class="receipt-thank-you">
-                                        <span class="mono">KNOW YOUR NUMBERS</span>
+                                        <span class="mono">TIME IS THE CURRENCY</span>
                                         <span class="mono">VISUALIZEVALUE.COM</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="receipt-footer">
-                                <p class="receipt-footer-message mono">THE COST OF EXISTING<br />WHAT IT TAKES TO MAINTAIN</p>
+                                <p class="receipt-footer-message mono">THE COST OF EXISTING<br />MEASURED IN TIME</p>
                             </div>
                         </div>
                     </div>
@@ -146,25 +154,25 @@
                     </div>
                     <div class="triple-grid">
                         <article class="pill">
-                            <h3>Fixed Costs</h3>
+                            <h3>Cost Per Hour</h3>
                             <ul>
-                                <li>Rent, mortgage, insurance.</li>
-                                <li>The baseline cost of existing.</li>
-                                <li>Hardest to reduce quickly.</li>
+                                <li>Your hourly price of existing.</li>
+                                <li>The clock is always running.</li>
+                                <li>Every hour costs you money to be alive.</li>
                             </ul>
                         </article>
                         <article class="pill">
-                            <h3>Variable Costs</h3>
+                            <h3>Time Banked</h3>
                             <ul>
-                                <li>Food, entertainment, discretionary.</li>
-                                <li>Easiest lever to pull.</li>
-                                <li>Often where lifestyle creep hides.</li>
+                                <li>Surplus ÷ hourly cost = time saved.</li>
+                                <li>Each month you bank days of freedom.</li>
+                                <li>Future time off work, funded.</li>
                             </ul>
                         </article>
                         <article class="pill">
                             <h3>Runway</h3>
                             <ul>
-                                <li>Savings divided by monthly burn.</li>
+                                <li>Savings ÷ monthly burn.</li>
                                 <li>How long you can survive without income.</li>
                                 <li>Freedom measured in months.</li>
                             </ul>
@@ -183,4 +191,3 @@
     <script src="burnrate.js"></script>
 </body>
 </html>
-

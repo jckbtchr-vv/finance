@@ -265,6 +265,38 @@ a {
   padding: 2rem;
 }
 
+.receipt-readout-triple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+
+.receipt-readout-triple p.label {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.receipt-readout-triple p.mono {
+  font-size: 0.95rem;
+}
+
+.contribution-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: var(--bg);
+  font-family: 'Departure Mono', 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.contribution-form select option {
+  background: var(--fg);
+  color: var(--bg);
+}
+
 /* Receipt Style */
 .receipt-preview {
   border: 1px solid var(--grid);

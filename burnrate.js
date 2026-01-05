@@ -8,9 +8,11 @@ const subscriptionsInput = document.getElementById('subscriptions');
 const otherInput = document.getElementById('other');
 const savingsInput = document.getElementById('savings');
 
+const hourlyCostDisplay = document.getElementById('hourly-cost');
 const dailyCostDisplay = document.getElementById('daily-cost');
-const monthlyNetDisplay = document.getElementById('monthly-net');
+const monthlyCostDisplay = document.getElementById('monthly-cost');
 const statusBadge = document.getElementById('status-badge');
+const timeBankedDisplay = document.getElementById('time-banked');
 const runwayDisplay = document.getElementById('runway');
 const annualBurnDisplay = document.getElementById('annual-burn');
 
@@ -18,6 +20,7 @@ const ledgerSummary = document.getElementById('ledger-summary');
 const receiptIncome = document.getElementById('receipt-income');
 const receiptExpenses = document.getElementById('receipt-expenses');
 const receiptNet = document.getElementById('receipt-net');
+const receiptTime = document.getElementById('receipt-time');
 
 let breakdownChart = null;
 
@@ -39,6 +42,18 @@ function formatCurrencyPrecise(amount) {
     }).format(amount);
 }
 
+function formatTime(hours) {
+    if (hours >= 24) {
+        const days = Math.floor(hours / 24);
+        const remainingHours = Math.round(hours % 24);
+        if (remainingHours > 0) {
+            return `${days}d ${remainingHours}h`;
+        }
+        return `${days} days`;
+    }
+    return `${Math.round(hours)} hours`;
+}
+
 function calculateBurnRate() {
     const income = parseFloat(incomeInput.value) || 0;
     const housing = parseFloat(housingInput.value) || 0;
@@ -51,27 +66,38 @@ function calculateBurnRate() {
 
     const totalExpenses = housing + utilities + food + transport + subscriptions + other;
     const monthlyNet = income - totalExpenses;
+    
+    // Time-based calculations
     const dailyCost = totalExpenses / 30;
+    const hourlyCost = totalExpenses / (30 * 24); // Cost per hour of existing
     const annualBurn = totalExpenses * 12;
+    
+    // Time banked: how many hours/days of freedom you're banking each month
+    // If you have surplus, divide by hourly cost to get hours of freedom banked
+    let timeBankedHours = 0;
+    if (monthlyNet > 0 && hourlyCost > 0) {
+        timeBankedHours = monthlyNet / hourlyCost;
+    }
     
     // Runway calculation (if spending more than earning, how long until savings depleted)
     let runway;
     if (monthlyNet < 0) {
         runway = Math.abs(savings / monthlyNet);
+    } else if (totalExpenses > 0) {
+        runway = savings / totalExpenses; // How long savings would last at current burn
     } else {
         runway = Infinity;
     }
 
-    updateDisplay(dailyCost, monthlyNet, runway, annualBurn);
-    updateLedger(income, housing, utilities, food, transport, subscriptions, other, totalExpenses, monthlyNet);
+    updateDisplay(hourlyCost, dailyCost, totalExpenses, monthlyNet, timeBankedHours, runway, annualBurn);
+    updateLedger(income, housing, utilities, food, transport, subscriptions, other, totalExpenses, monthlyNet, hourlyCost, timeBankedHours);
     updateChart(housing, utilities, food, transport, subscriptions, other);
 }
 
-function updateDisplay(dailyCost, monthlyNet, runway, annualBurn) {
+function updateDisplay(hourlyCost, dailyCost, monthlyCost, monthlyNet, timeBankedHours, runway, annualBurn) {
+    hourlyCostDisplay.textContent = `$${hourlyCost.toFixed(2)}`;
     dailyCostDisplay.textContent = formatCurrency(dailyCost);
-    
-    const netFormatted = monthlyNet >= 0 ? `+${formatCurrency(monthlyNet)}` : formatCurrency(monthlyNet);
-    monthlyNetDisplay.textContent = netFormatted;
+    monthlyCostDisplay.textContent = formatCurrency(monthlyCost);
     
     if (monthlyNet >= 0) {
         statusBadge.textContent = 'SURPLUS';
@@ -81,23 +107,48 @@ function updateDisplay(dailyCost, monthlyNet, runway, annualBurn) {
         statusBadge.style.borderColor = '#ef4444';
     }
     
-    if (runway === Infinity) {
-        runwayDisplay.textContent = '∞ (surplus)';
+    // Time banked display
+    if (monthlyNet > 0) {
+        timeBankedDisplay.textContent = `+${formatTime(timeBankedHours)}/mo`;
+    } else if (monthlyNet < 0) {
+        const hoursLost = Math.abs(monthlyNet / (hourlyCost || 1));
+        timeBankedDisplay.textContent = `-${formatTime(hoursLost)}/mo`;
     } else {
-        runwayDisplay.textContent = `${runway.toFixed(1)} months`;
+        timeBankedDisplay.textContent = '0 hours';
+    }
+    
+    if (runway === Infinity) {
+        runwayDisplay.textContent = '∞';
+    } else {
+        runwayDisplay.textContent = `${runway.toFixed(1)} mo`;
     }
     
     annualBurnDisplay.textContent = formatCurrency(annualBurn);
 }
 
-function updateLedger(income, housing, utilities, food, transport, subscriptions, other, totalExpenses, monthlyNet) {
+function updateLedger(income, housing, utilities, food, transport, subscriptions, other, totalExpenses, monthlyNet, hourlyCost, timeBankedHours) {
     receiptIncome.textContent = formatCurrencyPrecise(income);
     receiptExpenses.textContent = formatCurrencyPrecise(totalExpenses);
     
     const netFormatted = monthlyNet >= 0 ? `+${formatCurrencyPrecise(monthlyNet)}` : formatCurrencyPrecise(monthlyNet);
     receiptNet.textContent = netFormatted;
+    
+    // Time surplus in receipt
+    if (monthlyNet > 0) {
+        receiptTime.textContent = `+${formatTime(timeBankedHours)}`;
+    } else if (monthlyNet < 0) {
+        const hoursLost = Math.abs(monthlyNet / (hourlyCost || 1));
+        receiptTime.textContent = `-${formatTime(hoursLost)}`;
+    } else {
+        receiptTime.textContent = '0 hours';
+    }
 
+    const dailyCost = totalExpenses / 30;
+    
     ledgerSummary.innerHTML = `
+        <li><span>COST/HOUR</span><span>$${hourlyCost.toFixed(2)}</span></li>
+        <li><span>COST/DAY</span><span>${formatCurrency(dailyCost)}</span></li>
+        <li><span>─────────</span><span>─────────</span></li>
         <li><span>HOUSING</span><span>${formatCurrency(housing)}</span></li>
         <li><span>UTILITIES</span><span>${formatCurrency(utilities)}</span></li>
         <li><span>FOOD</span><span>${formatCurrency(food)}</span></li>
@@ -174,4 +225,3 @@ window.addEventListener('scroll', () => {
 
 // Initial calculation
 calculateBurnRate();
-
