@@ -1,0 +1,12 @@
+{
+  "name": "finance-calculator",
+  "version": "1.0.0",
+  "description": "Mortgage mechanics calculator",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
+
