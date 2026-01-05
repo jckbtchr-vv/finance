@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opportunity Cost - Visualize Value</title>
+    <title>Habit Cost - Visualize Value</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +12,11 @@
 <body>
     <div class="whitepaper-page">
         <header class="hero" id="top">
-            <p class="hero-flag mono">FINANCIAL MECHANICS / OPPORTUNITY COST</p>
-            <h1>OPPORTUNITY COST</h1>
+            <p class="hero-flag mono">FINANCIAL MECHANICS / HABIT COST</p>
+            <h1>HABIT COST</h1>
             <p class="tagline">
-                Every purchase has a hidden cost: the future value of that money if invested instead. 
-                Visualize what your spending could become over time.
+                Small recurring expenses compound into massive opportunity costs. 
+                See what your daily habits could become if invested instead.
             </p>
             <p class="tagline tagline-meta">
                 <a href="index.html" class="mono">← ALL TOOLS</a><br /><br />
@@ -51,12 +51,29 @@
                                 </div>
                                 <div class="scoreboard-value" id="future-value">$0</div>
                                 <p class="scoreboard-note">
-                                    Opportunity cost: <span id="opportunity-cost" class="mono">$0</span>
+                                    Total spent on habit: <span id="total-spent" class="mono">$0</span>
                                 </p>
                                 
                                 <form class="contribution-form" onsubmit="return false;">
-                                    <label for="expenditure">EXPENDITURE (USD)</label>
-                                    <input type="number" id="expenditure" value="1000" min="1" step="100">
+                                    <label for="habit-cost">HABIT COST (USD)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setHabit(5)">$5</button>
+                                        <button type="button" onclick="setHabit(15)">$15</button>
+                                        <button type="button" onclick="setHabit(50)">$50</button>
+                                    </div>
+                                    <input type="number" id="habit-cost" value="7" min="0.01" step="0.5">
+                                    
+                                    <label for="frequency">FREQUENCY</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setFrequency('daily')">DAILY</button>
+                                        <button type="button" onclick="setFrequency('weekly')">WEEKLY</button>
+                                        <button type="button" onclick="setFrequency('monthly')">MONTHLY</button>
+                                    </div>
+                                    <select id="frequency">
+                                        <option value="daily" selected>Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
                                     
                                     <label for="return-rate">ANNUAL RETURN (%)</label>
                                     <div class="tip-presets">
@@ -68,22 +85,22 @@
                                     
                                     <label for="years">TIME HORIZON (YEARS)</label>
                                     <div class="tip-presets">
-                                        <button type="button" onclick="setYears(5)">5Y</button>
                                         <button type="button" onclick="setYears(10)">10Y</button>
                                         <button type="button" onclick="setYears(20)">20Y</button>
+                                        <button type="button" onclick="setYears(30)">30Y</button>
                                     </div>
-                                    <input type="number" id="years" value="10" min="1" step="1">
+                                    <input type="number" id="years" value="20" min="1" step="1">
                                 </form>
                             </div>
                             
                             <div class="receipt-readout">
                                 <div>
-                                    <p class="label">MULTIPLIER</p>
-                                    <p class="mono" id="multiplier">2.16x</p>
+                                    <p class="label">YEARLY COST</p>
+                                    <p class="mono" id="yearly-cost">$0</p>
                                 </div>
                                 <div>
-                                    <p class="label">TOTAL GAIN</p>
-                                    <p class="mono" id="total-gain">$0</p>
+                                    <p class="label">OPPORTUNITY COST</p>
+                                    <p class="mono" id="opportunity-cost">$0</p>
                                 </div>
                             </div>
                         </div>
@@ -91,32 +108,32 @@
                         <div class="receipt-preview">
                             <div class="receipt-top">
                                 <p class="mono">VV</p>
-                                <p class="mono">OPPORTUNITY LEDGER</p>
+                                <p class="mono">HABIT LEDGER</p>
                             </div>
                             <div class="receipt-body">
                                 <ul class="receipt-lines" id="ledger-summary">
                                 </ul>
                                 <div class="receipt-summary">
                                     <div>
-                                        <span>SPENT TODAY</span>
+                                        <span>TOTAL SPENT</span>
                                         <span id="receipt-spent">$0.00</span>
                                     </div>
                                     <div>
-                                        <span>FUTURE VALUE</span>
-                                        <span id="receipt-future">$0.00</span>
+                                        <span>IF INVESTED</span>
+                                        <span id="receipt-invested">$0.00</span>
                                     </div>
                                     <div class="receipt-summary-pnl">
-                                        <span>COST OF SPENDING</span>
+                                        <span>OPPORTUNITY COST</span>
                                         <span id="receipt-cost">$0.00</span>
                                     </div>
                                     <div class="receipt-thank-you">
-                                        <span class="mono">TIME IS THE MULTIPLIER</span>
+                                        <span class="mono">SMALL LEAKS SINK SHIPS</span>
                                         <span class="mono">VISUALIZEVALUE.COM</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="receipt-footer">
-                                <p class="receipt-footer-message mono">THE TRUE COST<br />WHAT YOU GIVE UP BY SPENDING</p>
+                                <p class="receipt-footer-message mono">THE LATTE FACTOR<br />HABITS COMPOUND TOO</p>
                             </div>
                         </div>
                     </div>
@@ -128,7 +145,7 @@
                         <h2>Timeline</h2>
                     </div>
                     <p>
-                        Compound interest is exponential. The longer you wait, the more dramatic the difference between spending now and investing for later.
+                        Regular contributions compound dramatically over time. The gap between spending and investing grows exponentially as the years pass.
                     </p>
                     <div class="chart-container">
                         <canvas id="growth-chart"></canvas>
@@ -142,27 +159,30 @@
                     </div>
                     <div class="triple-grid">
                         <article class="pill">
-                            <h3>The Expenditure</h3>
+                            <h3>The Habit</h3>
                             <ul>
-                                <li>The money leaving your account today.</li>
-                                <li>Could be a purchase, subscription, or lifestyle choice.</li>
-                                <li>The starting point for calculating opportunity cost.</li>
+                                <li>$7/day coffee = $2,555/year.</li>
+                                <li>$15/day lunch = $5,475/year.</li>
+                                <li>$100/month subscriptions = $1,200/year.</li>
+                                <li>Small numbers, repeated often.</li>
                             </ul>
                         </article>
                         <article class="pill">
-                            <h3>The Return</h3>
+                            <h3>The Compound</h3>
                             <ul>
-                                <li>Historical S&P 500 average: ~10% annually.</li>
-                                <li>Conservative estimate: 7-8% after inflation.</li>
-                                <li>Compounds year over year.</li>
+                                <li>Each contribution grows independently.</li>
+                                <li>Earlier contributions grow the most.</li>
+                                <li>8% return doubles money in 9 years.</li>
+                                <li>Time is the multiplier.</li>
                             </ul>
                         </article>
                         <article class="pill">
-                            <h3>The Time</h3>
+                            <h3>The Choice</h3>
                             <ul>
-                                <li>The multiplier that makes compound interest powerful.</li>
-                                <li>10 years doubles money at 7%.</li>
-                                <li>Time in the market beats timing the market.</li>
+                                <li>Not about deprivation.</li>
+                                <li>About awareness of true cost.</li>
+                                <li>Every habit is a trade-off.</li>
+                                <li>Choose consciously.</li>
                             </ul>
                         </article>
                     </div>
@@ -179,4 +199,3 @@
     <script src="opportunity.js"></script>
 </body>
 </html>
-
