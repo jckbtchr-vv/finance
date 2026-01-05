@@ -4,7 +4,7 @@
   "description": "Mortgage mechanics calculator",
   "scripts": {
     "start": "serve .",
-    "build": "echo 'No build needed' && mkdir -p dist && cp -r index.html styles.css script.js public dist/"
+    "build": "mkdir -p dist && cp -r index.html styles.css script.js public dist/"
   },
   "dependencies": {
     "serve": "^14.2.1"
