@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lease Mechanics - Visualize Value</title>
+    <link rel="stylesheet" href="../mortgage/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="whitepaper-page">
+        <header class="hero" id="top">
+            <p class="hero-flag mono">FINANCIAL MECHANICS / LEASING</p>
+            <h1>LEASE MECHANICS</h1>
+            <p class="tagline">
+                Visualize the mechanics of vehicle leasing. Understand how MSRP, residual value, and money factor determine your monthly commitment.
+            </p>
+            <p class="tagline tagline-meta">
+                <a href="../index.html" class="mono">← ALL TOOLS</a><br /><br />
+                <a href="https://x.com/jackbutcher" target="_blank" rel="noreferrer noopener">JACK BUTCHER</a> /
+                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a>
+            </p>
+        </header>
+
+        <div class="page-grid">
+            <aside class="nav-panel">
+                <p class="label label-nav">NAVVIGATE</p>
+                <nav>
+                    <a href="#calculator" class="nav-link active">Calculator</a>
+                    <a href="#mechanics" class="nav-link">Lease Mechanics</a>
+                    <a href="#framework" class="nav-link">Framework</a>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <section id="calculator" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">01</p>
+                        <h2>Calculator</h2>
+                    </div>
+                    
+                    <div class="simulator-grid">
+                        <div class="scoreboard-card">
+                            <div class="scoreboard-content-top">
+                                <div class="scoreboard-head">
+                                    <span class="mono">MONTHLY LEASE</span>
+                                    <span class="badge" id="residual-badge">60% RESIDUAL</span>
+                                </div>
+                                <div class="scoreboard-value" id="monthly-payment">$0</div>
+                                <p class="scoreboard-note">
+                                    Total cost over lease term: <span id="total-cost-display" class="mono">$0</span>
+                                </p>
+                                
+                                <form class="contribution-form" onsubmit="return false;">
+                                    <label for="msrp">MSRP (USD)</label>
+                                    <input type="number" id="msrp" value="50000" min="1000" step="1000">
+                                    
+                                    <label for="residual">RESIDUAL VALUE (%)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setResidual(50)">50%</button>
+                                        <button type="button" onclick="setResidual(60)">60%</button>
+                                        <button type="button" onclick="setResidual(70)">70%</button>
+                                    </div>
+                                    <input type="number" id="residual" value="60" min="1" max="99" step="1">
+                                    
+                                    <label for="money-factor">MONEY FACTOR (e.g. 0.0030)</label>
+                                    <input type="number" id="money-factor" value="0.0025" min="0" step="0.0001">
+                                    
+                                    <label for="term">TERM (MONTHS)</label>
+                                    <div class="tip-presets">
+                                        <button type="button" onclick="setTerm(24)">24M</button>
+                                        <button type="button" onclick="setTerm(36)">36M</button>
+                                        <button type="button" onclick="setTerm(48)">48M</button>
+                                    </div>
+                                    <input type="number" id="term" value="36" min="1" step="1">
+                                </form>
+                            </div>
+                            
+                            <div class="receipt-readout">
+                                <div>
+                                    <p class="label">DEPRECIATION</p>
+                                    <p class="mono" id="display-depreciation">$0</p>
+                                </div>
+                                <div>
+                                    <p class="label">RENT CHARGE</p>
+                                    <p class="mono" id="display-rent">$0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="receipt-preview">
+                            <div class="receipt-top">
+                                <p class="mono">VV</p>
+                                <p class="mono">LEASE LEDGER</p>
+                            </div>
+                            <div class="receipt-body">
+                                <ul class="receipt-lines" id="ledger-summary">
+                                    <!-- Lines will be injected by JS -->
+                                </ul>
+                                <div class="receipt-summary">
+                                    <div>
+                                        <span>DEPRECIATION/MO.</span>
+                                        <span id="receipt-depreciation">$0.00</span>
+                                    </div>
+                                    <div>
+                                        <span>RENT CHARGE/MO.</span>
+                                        <span id="receipt-rent">$0.00</span>
+                                    </div>
+                                    <div class="receipt-summary-pnl">
+                                        <span>MONTHLY TOTAL</span>
+                                        <span id="receipt-total">$0.00</span>
+                                    </div>
+                                    <div class="receipt-thank-you">
+                                        <span class="mono">FINANCIAL TRANSPARENCY</span>
+                                        <span class="mono">VISUALIZEVALUE.COM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="receipt-footer">
+                                <p class="receipt-footer-message mono">THE PRICE OF USE<br />LEASING IS RENTING DEPRECIATION</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="mechanics" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">02</p>
+                        <h2>Lease Mechanics</h2>
+                    </div>
+                    <p>
+                        A lease is split into two primary components: Depreciation and Rent Charge. You are paying for the value the car loses during your possession, plus the cost of borrowing the capital.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="lease-breakdown-chart"></canvas>
+                    </div>
+                </section>
+
+                <section id="framework" class="section-block" data-section>
+                    <div class="section-header">
+                        <p class="mono">03</p>
+                        <h2>Framework</h2>
+                    </div>
+                    <div class="triple-grid">
+                        <article class="pill">
+                            <h3>Depreciation</h3>
+                            <ul>
+                                <li>The difference between MSRP and Residual Value.</li>
+                                <li>The primary cost of a lease.</li>
+                                <li>Lower residuals mean higher monthly payments.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>Money Factor</h3>
+                            <ul>
+                                <li>The interest rate expressed as a decimal.</li>
+                                <li>Multiply by 2400 to get the APR equivalent.</li>
+                                <li>Paid on the sum of MSRP and Residual Value.</li>
+                            </ul>
+                        </article>
+                        <article class="pill">
+                            <h3>Residual</h3>
+                            <ul>
+                                <li>The projected value of the car at the end of the lease.</li>
+                                <li>Set by the manufacturer.</li>
+                                <li>Highly influential on the monthly payment.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <p>© 2026 Jack Butcher / Visualize Value. Financial Mechanics.</p>
+            <a href="#top" class="mono">Back to top ↑</a>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -3,195 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mortgage Mechanics - Visualize Value</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <title>Financial Mechanics - Visualize Value</title>
+    <link rel="stylesheet" href="mortgage/styles.css">
+    <style>
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .tool-card {
+            border: 1px solid var(--fg);
+            padding: 2.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 300px;
+        }
+        .tool-card:hover {
+            background: var(--fg);
+            color: var(--bg);
+        }
+        .tool-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .tool-card p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        .tool-card .arrow {
+            font-size: 2rem;
+            margin-top: auto;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
     <div class="whitepaper-page">
         <header class="hero" id="top">
-            <p class="hero-flag mono">FINANCIAL MECHANICS / MORTGAGE</p>
-            <h1>MORTGAGE MECHANICS</h1>
+            <p class="hero-flag mono">FINANCIAL MECHANICS / TOOLS</p>
+            <h1>FINANCIAL MECHANICS</h1>
             <p class="tagline">
-                Visualize the impact of interest rates and time on the cost of home ownership. 
-                Understand the relationship between principal and interest as rates change.
+                A collection of tools designed to visualize the impact of financial decisions over time. 
+                Understand the physics of money.
             </p>
             <p class="tagline tagline-meta">
                 <a href="https://x.com/jackbutcher" target="_blank" rel="noreferrer noopener">JACK BUTCHER</a> /
-                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a><br />
-                MORTGAGE CALCULATOR / INTEREST VISUALIZATION
+                <a href="https://x.com/visualizevalue" target="_blank" rel="noreferrer noopener">VISUALIZE VALUE</a>
             </p>
         </header>
 
-        <div class="page-grid">
-            <aside class="nav-panel">
-                <p class="label label-nav">NAVVIGATE</p>
-                <nav>
-                    <a href="#calculator" class="nav-link active">Calculator</a>
-                    <a href="#mechanics" class="nav-link">Interest Mechanics</a>
-                    <a href="#impact" class="nav-link">Long-term Impact</a>
-                    <a href="#framework" class="nav-link">Framework</a>
-                </nav>
-            </aside>
-
+        <div class="page-grid" style="grid-template-columns: 1fr;">
             <main class="content">
-                <section id="calculator" class="section-block" data-section>
-                    <div class="section-header">
-                        <p class="mono">01</p>
-                        <h2>Calculator</h2>
-                    </div>
-                    
-                    <div class="simulator-grid">
-                        <div class="scoreboard-card">
-                            <div class="scoreboard-content-top">
-                                <div class="scoreboard-head">
-                                    <span class="mono">MONTHLY PAYMENT</span>
-                                    <span class="badge" id="rate-badge">7.00% RATE</span>
-                                </div>
-                                <div class="scoreboard-value" id="monthly-payment">$0</div>
-                                <p class="scoreboard-note">
-                                    Total interest paid over the life of the loan: <span id="total-interest" class="mono">$0</span>
-                                </p>
-                                
-                                <form class="contribution-form" onsubmit="return false;">
-                                    <label for="principal">LOAN AMOUNT (USD)</label>
-                                    <input type="number" id="principal" value="500000" min="1000" step="1000">
-                                    
-                                    <label for="rate">INTEREST RATE (%)</label>
-                                    <div class="tip-presets">
-                                        <button type="button" onclick="setRate(3)">3%</button>
-                                        <button type="button" onclick="setRate(5)">5%</button>
-                                        <button type="button" onclick="setRate(7)">7%</button>
-                                    </div>
-                                    <input type="number" id="rate" value="7.0" min="0.1" step="0.1">
-                                    
-                                    <label for="term">TERM (YEARS)</label>
-                                    <div class="tip-presets">
-                                        <button type="button" onclick="setTerm(15)">15Y</button>
-                                        <button type="button" onclick="setTerm(30)">30Y</button>
-                                        <button type="button" onclick="setTerm(40)">40Y</button>
-                                    </div>
-                                    <input type="number" id="term" value="30" min="1" step="1">
-                                </form>
-                            </div>
-                            
-                            <div class="receipt-readout">
-                                <div>
-                                    <p class="label">TOTAL COST</p>
-                                    <p class="mono" id="total-cost">$0</p>
-                                </div>
-                                <div>
-                                    <p class="label">PRINCIPAL</p>
-                                    <p class="mono" id="display-principal">$0</p>
-                                </div>
-                            </div>
+                <div class="tool-grid">
+                    <a href="mortgage/index.html" class="tool-card">
+                        <div>
+                            <p class="label">MORTGAGE</p>
+                            <h2>MORTGAGE CALCULATOR</h2>
+                            <p>Visualize the relationship between principal, interest rates, and long-term costs of home ownership.</p>
                         </div>
-
-                        <div class="receipt-preview">
-                            <div class="receipt-top">
-                                <p class="mono">VV</p>
-                                <p class="mono">MORTGAGE LEDGER</p>
-                            </div>
-                            <div class="receipt-body">
-                                <ul class="receipt-lines" id="ledger-summary">
-                                    <!-- Lines will be injected by JS -->
-                                </ul>
-                                <div class="receipt-summary">
-                                    <div>
-                                        <span>INTEREST.</span>
-                                        <span id="receipt-interest">$0.00</span>
-                                    </div>
-                                    <div>
-                                        <span>PRINCIPAL</span>
-                                        <span id="receipt-principal">$0.00</span>
-                                    </div>
-                                    <div class="receipt-summary-pnl">
-                                        <span>TOTAL</span>
-                                        <span id="receipt-total">$0.00</span>
-                                    </div>
-                                    <div class="receipt-thank-you">
-                                        <span class="mono">FINANCIAL TRANSPARENCY</span>
-                                        <span class="mono">VISUALIZEVALUE.COM</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="receipt-footer">
-                                <p class="receipt-footer-message mono">THE PRICE OF TIME<br />INTEREST IS THE RENT OF MONEY</p>
-                            </div>
+                        <div class="arrow">→</div>
+                    </a>
+                    <a href="lease/index.html" class="tool-card">
+                        <div>
+                            <p class="label">LEASING</p>
+                            <h2>CAR LEASE CALCULATOR</h2>
+                            <p>Understand the mechanics of depreciation, money factors, and residual values in vehicle leasing.</p>
                         </div>
-                    </div>
-                </section>
-
-                <section id="mechanics" class="section-block" data-section>
-                    <div class="section-header">
-                        <p class="mono">02</p>
-                        <h2>Interest Mechanics</h2>
-                    </div>
-                    <p>
-                        Interest is front-loaded. In the early years of a mortgage, the majority of your payment goes toward interest, not principal. This visualization shows how that ratio shifts over the term of the loan.
-                    </p>
-                    <div class="chart-container">
-                        <canvas id="amortization-chart"></canvas>
-                    </div>
-                </section>
-
-                <section id="impact" class="section-block" data-section>
-                    <div class="section-header">
-                        <p class="mono">03</p>
-                        <h2>Long-term Impact</h2>
-                    </div>
-                    <p>
-                        Small changes in interest rates result in massive differences in total cost. A 1% increase in rate on a $500,000 30-year mortgage adds approximately $100,000 to the total interest paid.
-                    </p>
-                    <div class="comparison-grid" id="rate-comparison">
-                        <!-- Comparison cards will be injected by JS -->
-                    </div>
-                </section>
-
-                <section id="framework" class="section-block" data-section>
-                    <div class="section-header">
-                        <p class="mono">04</p>
-                        <h2>Framework</h2>
-                    </div>
-                    <div class="triple-grid">
-                        <article class="pill">
-                            <h3>The Principal</h3>
-                            <ul>
-                                <li>The raw cost of the asset.</li>
-                                <li>The number that decreases as you pay down the debt.</li>
-                                <li>Equity is the portion of principal you own.</li>
-                            </ul>
-                        </article>
-                        <article class="pill">
-                            <h3>The Interest</h3>
-                            <ul>
-                                <li>The cost of borrowing time.</li>
-                                <li>Front-loaded in the amortization schedule.</li>
-                                <li>Highly sensitive to the annual percentage rate.</li>
-                            </ul>
-                        </article>
-                        <article class="pill">
-                            <h3>The Term</h3>
-                            <ul>
-                                <li>The duration of the agreement.</li>
-                                <li>Longer terms lower monthly payments but increase total cost.</li>
-                                <li>Time is the multiplier for interest.</li>
-                            </ul>
-                        </article>
-                    </div>
-                </section>
+                        <div class="arrow">→</div>
+                    </a>
+                </div>
             </main>
         </div>
 
         <footer class="site-footer">
             <p>© 2026 Jack Butcher / Visualize Value. Financial Mechanics.</p>
-            <a href="#top" class="mono">Back to top ↑</a>
         </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
-
