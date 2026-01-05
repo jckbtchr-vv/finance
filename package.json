@@ -1,13 +1,5 @@
 {
   "name": "finance-calculator",
   "version": "1.0.0",
-  "description": "Mortgage mechanics calculator",
-  "scripts": {
-    "start": "serve .",
-    "build": "rm -rf dist && mkdir -p dist && cp -r index.html styles.css public mortgage lease dist/"
-  },
-  "dependencies": {
-    "serve": "^14.2.1"
-  }
+  "private": true
 }
-
